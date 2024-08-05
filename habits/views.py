@@ -1,4 +1,6 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
 
 from habits.models import Habit
@@ -13,7 +15,7 @@ class HabitListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        """ Фильтр для списка привычек владельца. """
+        """Фильтр для списка привычек владельца."""
         user = self.request.user
         return Habit.objects.filter(owner=user)
 
@@ -23,7 +25,7 @@ class HabitPublishedListAPIView(ListAPIView):
     pagination_class = HabitPagination
 
     def get_queryset(self):
-        """ Фильтр для списка опубликованных привычек. """
+        """Фильтр для списка опубликованных привычек."""
         return Habit.objects.filter(is_published=True)
 
 
@@ -32,7 +34,7 @@ class HabitCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        """ Присваивает владельца привычки при создании. """
+        """Присваивает владельца привычки при создании."""
         habit = serializer.save()
         habit.owner = self.request.user
         habit.save()

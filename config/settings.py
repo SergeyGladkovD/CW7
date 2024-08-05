@@ -1,14 +1,15 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG') == 'True'
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = []
 
@@ -19,15 +20,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'corsheaders',
-    'drf_yasg',
-    'django_celery_beat',
-
-    'users.apps.UsersConfig',
-    'habits.apps.HabitsConfig',
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "corsheaders",
+    "drf_yasg",
+    "django_celery_beat",
+    "users.apps.UsersConfig",
+    "habits.apps.HabitsConfig",
 ]
 
 MIDDLEWARE = [
@@ -38,7 +37,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -67,11 +66,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('NAME'),
-        "HOST": os.getenv('HOST'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "PORT": os.getenv('PORT'),
+        "NAME": os.getenv("NAME"),
+        "HOST": os.getenv("HOST"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "PORT": os.getenv("PORT"),
     }
 }
 
@@ -108,35 +107,37 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:8000', ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+]
 CORS_ALLOW_ALL_ORIGINS = False
 
-TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
-TELEGRAM_URL = 'https://api.telegram.org/bot'
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+TELEGRAM_URL = "https://api.telegram.org/bot"
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 CELERY_TIMEZONE = TIME_ZONE
-CELERY_TASK_TRACK_STARTED = os.getenv("CELERY_TASK_TRACK_STARTED", False) == 'True'
+CELERY_TASK_TRACK_STARTED = os.getenv("CELERY_TASK_TRACK_STARTED", False) == "True"
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_BEAT_SCHEDULE = {
     "send_remainder": {
         "task": "habits.tasks.send_remainder",

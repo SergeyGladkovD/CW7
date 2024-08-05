@@ -1,4 +1,6 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 from rest_framework.permissions import AllowAny
 
 from users.models import User
@@ -21,7 +23,7 @@ class UserCreateAPIView(CreateAPIView):
     permission_classes = (AllowAny,)
 
     def perform_create(self, serializer):
-        """ Хеширование пароля пользователя. """
+        """Хеширование пароля пользователя."""
         user = serializer.save(is_active=True)
         user.set_password(user.password)
         user.save()

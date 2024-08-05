@@ -1,10 +1,10 @@
 import requests
 
-from config.settings import TELEGRAM_URL, TELEGRAM_TOKEN
+from config.settings import TELEGRAM_TOKEN, TELEGRAM_URL
 
 
 def send_telegram_message(tg_chat_id, message):
-    """ Отправка сообщения в телеграм. """
+    """Отправка сообщения в телеграм."""
 
     params = {
         "text": message,
