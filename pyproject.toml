@@ -21,6 +21,8 @@ python-dotenv = "^1.0.1"
 django-cors-headers = "^4.4.0"
 drf-yasg = "^1.21.7"
 setuptools = "^72.1.0"
+black = "^24.8.0"
+isort = "^5.13.2"
 
 
 [build-system]
